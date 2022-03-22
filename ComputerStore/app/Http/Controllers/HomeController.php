@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function _constructor(){
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $viewData["title"] = "Home - Online Store";

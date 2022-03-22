@@ -28,3 +28,6 @@ Route::post('/orders', 'App\Http\Controllers\OrderController@save');
 Route::get('/orders/create', 'App\Http\Controllers\OrderController@create')->name("order.create");
 Route::get('/orders/{id}', 'App\Http\Controllers\OrderController@show')->name("order.show");
 
+
+Auth::routes();
+
