@@ -26,5 +26,6 @@ Route::get('/computers/{id}', 'App\Http\Controllers\ComputerController@show')->n
 Route::get('/orders', 'App\Http\Controllers\OrderController@index')->name("order.index");
 Route::post('/orders', 'App\Http\Controllers\OrderController@save');
 Route::get('/orders/create', 'App\Http\Controllers\OrderController@create')->name("order.create");
+Route::get('/orders/add/{id}', 'App\Http\Controllers\OrderController@add')->name("order.add");
+Route::get('/orders/removeAll/', 'App\Http\Controllers\OrderController@removeAll')->name("order.removeAll");
 Route::get('/orders/{id}', 'App\Http\Controllers\OrderController@show')->name("order.show");
-

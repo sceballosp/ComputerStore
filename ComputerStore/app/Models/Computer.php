@@ -22,7 +22,7 @@ class Computer extends Model
      * $this->categories - Category[] - contains the associated categories
      */
 
-    protected $fillable = ['reference', 'brand', 'os', 'cpu', 'ram', 'gpu', 'storage', 'description', 'quantityAvailable'];
+    protected $fillable = ['reference', 'brand', 'os', 'cpu', 'ram', 'gpu', 'storage', 'description', 'price', 'quantityAvailable'];
     
     public static function validate($request)
     {
@@ -35,6 +35,7 @@ class Computer extends Model
             "gpu" => "required",
             "storage" => "required",
             "description" => "required",
+            "price" => "required",
             "quantityAvailable" => "required",
             "categories" => "required"
         ]);
@@ -129,6 +130,16 @@ class Computer extends Model
     public function setDescription($description)
     {
         $this->attributes['description'] = $description;
+    }
+
+    public function getPrice()
+    {
+        return $this->attributes['price'];
+    }
+
+    public function setPrice($price)
+    {
+        $this->attributes['price'] = $price;
     }
 
     public function getQuantityAvailable()

@@ -14,6 +14,7 @@
     <p>Tarjeta grafica: {{ $viewData["computer"]->getGpu() }}</p>
     <p>Almacenamiento: {{ $viewData["computer"]->getStorage() }}</p>
     <p>Descripción: {{ $viewData["computer"]->getDescription() }}</p>
+    <p>Precio: {{ $viewData["computer"]->getPrice() }}</p>
     <p>Unidades disponibles: {{ $viewData["computer"]->getQuantityAvailable() }}</p>
 
     <p>Categorias:</p>
@@ -21,8 +22,6 @@
       <p>- {{ $category->getName() }}</p>
     @endforeach
   </div>
-
-  <a href="/computers"><- computers</a>
 
 </div>
 @endsection

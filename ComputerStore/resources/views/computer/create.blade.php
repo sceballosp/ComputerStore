@@ -29,10 +29,13 @@
     <label for="storage">Almacenamiento:</label><br>
     <input type="text" id="storage" name="storage"><br><br>
 
-    <label for="storage">Descripción:</label><br>
+    <label for="description">Descripción:</label><br>
     <input type="text" id="description" name="description"><br><br>
 
-    <label for="storage">Cantidad disponible:</label><br>
+    <label for="price">Precio:</label><br>
+    <input type="text" id="price" name="price"><br><br>
+
+    <label for="quantityAvailable">Cantidad disponible:</label><br>
     <input type="text" id="quantityAvailable" name="quantityAvailable"><br><br>
 
     <fieldset>

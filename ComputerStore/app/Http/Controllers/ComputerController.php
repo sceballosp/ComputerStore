@@ -45,7 +45,7 @@ class ComputerController extends Controller
     public function save(Request $request)
     {
         Computer::validate($request);        
-        $item = $request->only(["reference", "brand", "os", "cpu", "ram", "gpu", "storage", "description", "quantityAvailable", "categories"]);
+        $item = $request->only(["reference", "brand", "os", "cpu", "ram", "gpu", "storage", "description", "price", "quantityAvailable", "categories"]);
         $computer = new Computer();
         $computer->setReference($item["reference"]);
         $computer->setBrand($item["brand"]);
@@ -55,6 +55,7 @@ class ComputerController extends Controller
         $computer->setGpu($item["gpu"]);
         $computer->setStorage($item["storage"]);
         $computer->setDescription($item["description"]);
+        $computer->setPrice($item["price"]);
         $computer->setQuantityAvailable($item["quantityAvailable"]);
         $computer->save();
 
@@ -72,4 +73,6 @@ class ComputerController extends Controller
 
         return redirect('/');
     }
+
+
 }
