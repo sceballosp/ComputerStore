@@ -8,6 +8,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('home.index');
+        $viewData["title"] = "Home - Online Store";
+        $viewData["subtitle"] = "Home";
+
+        return view('home.index')->with("viewData", $viewData);
     }
 }

@@ -1,12 +1,16 @@
 @extends('layouts.app')
+@section("title", $viewData["title"])
 @section('content')
-
 <div class="margin">
 
   <h2>Crear computer</h2>
 
   <form action="/computers" method="POST">
     @csrf
+
+    <label for="brand">Referencia:</label><br>
+    <input type="text" id="reference" name="reference"><br><br>
+
     <label for="brand">Marca:</label><br>
     <input type="text" id="brand" name="brand"><br><br>
 
@@ -25,10 +29,16 @@
     <label for="storage">Almacenamiento:</label><br>
     <input type="text" id="storage" name="storage"><br><br>
 
+    <label for="storage">Descripción:</label><br>
+    <input type="text" id="description" name="description"><br><br>
+
+    <label for="storage">Cantidad disponible:</label><br>
+    <input type="text" id="quantityAvailable" name="quantityAvailable"><br><br>
+
     <fieldset>
       <label for="categories">Categorias:</label><br>
       @foreach($viewData["categories"] as $key => $category)
-      <input type="checkbox" name="categories[]" value="{{ $category->getName() }}"> {{ $category->getName() }}<br />
+        <input type="checkbox" name="categories[]" value="{{ $category->getName() }}"> {{ $category->getName() }}<br />
       @endforeach
     </fieldset>
 
@@ -37,8 +47,7 @@
 
   <div>
     <br>
-    <a href="/">
-      <- home</a>
+    <a href="/"><- home</a>
   </div>
 
 </div>

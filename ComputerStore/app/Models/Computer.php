@@ -7,22 +7,39 @@ use App\Models\Category;
 
 class Computer extends Model
 {
-
     /**
      * COMPUTER ATTRIBUTES
      * $this->attributes['id'] - int - contains the computer primary key (id)
+     * $this->attributes['reference'] - string - contains the computer reference
      * $this->attributes['brand'] - string - contains the computer brand
      * $this->attributes['os'] - string - contains the computer operating system
      * $this->attributes['cpu'] - string - contains the computer procesor
      * $this->attributes['ram'] - int - contains the computer RAM
      * $this->attributes['gpu'] - string - contains the computer graphics card
      * $this->attributes['storage'] - int - contains the computer storage
+     * $this->attributes['description'] - int - contains the computer description
+     * $this->attributes['quantityAvailable'] - int - contains the quantity available of the computer in the store
      * $this->categories - Category[] - contains the associated categories
      */
 
-    protected $fillable = ['brand', 'os', 'cpu', 'ram', 'gpu', 'storage'];
-
-
+    protected $fillable = ['reference', 'brand', 'os', 'cpu', 'ram', 'gpu', 'storage', 'description', 'quantityAvailable'];
+    
+    public static function validate($request)
+    {
+        $request->validate([
+            "reference" => "required",
+            "brand" => "required",
+            "os" => "required",
+            "cpu" => "required",
+            "ram" => "required",
+            "gpu" => "required",
+            "storage" => "required",
+            "description" => "required",
+            "quantityAvailable" => "required",
+            "categories" => "required"
+        ]);
+    }
+    
     public function getId()
     {
         return $this->attributes['id'];
@@ -33,6 +50,15 @@ class Computer extends Model
         $this->attributes['id'] = $id;
     }
 
+    public function getReference()
+    {
+        return $this->attributes['reference'];
+    }
+
+    public function setReference($reference)
+    {
+        $this->attributes['reference'] = $reference;
+    }
 
     public function getBrand()
     {
@@ -43,7 +69,6 @@ class Computer extends Model
     {
         $this->attributes['brand'] = $brand;
     }
-
 
     public function getOs()
     {
@@ -66,7 +91,6 @@ class Computer extends Model
         $this->attributes['cpu'] = $cpu;
     }
 
-
     public function getRam()
     {
         return $this->attributes['ram'];
@@ -76,7 +100,6 @@ class Computer extends Model
     {
         $this->attributes['ram'] = $ram;
     }
-
 
     public function getGpu()
     {
@@ -88,7 +111,6 @@ class Computer extends Model
         $this->attributes['gpu'] = $gpu;
     }
 
-
     public function getStorage()
     {
         return $this->attributes['storage'];
@@ -99,8 +121,33 @@ class Computer extends Model
         $this->attributes['storage'] = $storage;
     }
 
+    public function getDescription()
+    {
+        return $this->attributes['description'];
+    }
+
+    public function setDescription($description)
+    {
+        $this->attributes['description'] = $description;
+    }
+
+    public function getQuantityAvailable()
+    {
+        return $this->attributes['quantityAvailable'];
+    }
+
+    public function setQuantityAvailable($quantityAvailable)
+    {
+        $this->attributes['quantityAvailable'] = $quantityAvailable;
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'computer_category');
+    }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_computer');
     }
 }

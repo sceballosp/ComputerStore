@@ -6,9 +6,9 @@
 <h2>Lista de computadores</h2>
 
 @foreach($viewData["computers"] as $key => $computer)
-<div>
-  <li><a class="computer-item" href="{{ route('computer.show', ['id' => $computer->getId()]) }}"> Computador {{ $computer->getBrand() }} - ID: {{ $computer->getId() }}</a></li>
-</div>
+  <div>
+    <li><a class="computer-item" href="{{ route('computer.show', ['id' => $computer->getId()]) }}"> Computador {{ $computer->getBrand() }} - ID: {{ $computer->getId() }}</a></li>
+  </div>
 @endforeach
 
 <div>

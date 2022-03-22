@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('computer_category', function (Blueprint $table) {
+        Schema::create('order_computer', function (Blueprint $table) {
             $table->bigInteger('computer_id')->unsigned();
             $table->bigInteger('category_id')->unsigned();
             $table->foreign('computer_id')->references('id')->on('computers')->onDelete('cascade');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('computer_categories');
+        Schema::dropIfExists('order_computer');
     }
 };

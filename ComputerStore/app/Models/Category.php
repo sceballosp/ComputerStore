@@ -11,13 +11,21 @@ class Category extends Model
      * CATEGORY ATTRIBUTES
      * $this->attributes['id'] - int - contains the category primary key (id)
      * $this->attributes['name'] - string - contains the category name
+     * $this->attributes['description'] - string - contains the category description
      * $this->computers - Computer[] - contains the associated computers
      */
 
     protected $table = 'categories';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'description'];
 
+    public static function validate($request)
+    {
+        $request->validate([
+            "name" => "required",
+            "description" => "required"
+        ]);
+    }
 
     public function getId()
     {
@@ -29,7 +37,6 @@ class Category extends Model
         $this->attributes['id'] = $id;
     }
 
-
     public function getName()
     {
         return $this->attributes['name'];
@@ -38,6 +45,16 @@ class Category extends Model
     public function setName($name)
     {
         $this->attributes['name'] = $name;
+    }
+
+    public function getDescription()
+    {
+        return $this->attributes['description'];
+    }
+
+    public function setDescription($description)
+    {
+        $this->attributes['description'] = $description;
     }
 
     public function computers()

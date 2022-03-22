@@ -16,14 +16,15 @@ return new class extends Migration
         Schema::create('computers', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('reference');
             $table->string('brand');
             $table->string('os');
             $table->string('cpu');
             $table->bigInteger('ram');
             $table->string('gpu');
             $table->bigInteger('storage');
-            $table->string('description')->nullable();
-            $table->bigInteger('quantityAvailable')->nullable();
+            $table->string('description');
+            $table->bigInteger('quantityAvailable');
         });
     }
 

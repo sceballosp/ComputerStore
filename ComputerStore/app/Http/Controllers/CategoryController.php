@@ -2,35 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Models\Category;
+
 
 class CategoryController extends Controller
 {
+
     public function create()
     {
-        $categories = Category::all();
-
         $viewData = [];
-        $viewData["title"] = "Computer - Online Store";
-        $viewData["subtitle"] = "Category List";
-        $viewData["categories"] = $categories;
-
+        $viewData["title"] = "Category - Online Store";
+        $viewData["subtitle"] = "List of categories";
+        $viewData["categories"] = Category::all();
+        
         return view('category.create')->with("viewData", $viewData);
     }
 
-    public function store(Request $request)
+    public function save(Request $request)
     {
-        $request->validate([
-            "name" => "required",
-        ]);
-
-        $item = $request->only(["name"]);
-
+        Category::validate($request);       
+        $item = $request->only(["name", "description"]);
         $category = new Category();
         $category->setName($item["name"]);
-
-
+        $category->setDescription($item["description"]);
         $category->save();
 
         return redirect('/categories/create');
