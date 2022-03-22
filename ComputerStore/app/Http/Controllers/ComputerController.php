@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Computer;
+use App\Models\ComputerCategory;
 
 class ComputerController extends Controller
 {
@@ -14,7 +16,7 @@ class ComputerController extends Controller
 
     public function index()
     {
-        $computers = Computer::orderBy('id', 'DESC')->get();
+        $computers = Computer::all();
 
         $viewData = [];
         $viewData["title"] = "Computer - Online Store";
@@ -28,7 +30,6 @@ class ComputerController extends Controller
     {
         $computer = Computer::findOrFail($id);
 
-
         $viewData = [];
         $viewData["title"] = "Computer - Online Store";
         $viewData["subtitle"] = "Computer Details";
@@ -39,8 +40,14 @@ class ComputerController extends Controller
 
     public function create()
     {
+        $categories = Category::get('name');
 
-        return view('computer.create');
+        $viewData = [];
+        $viewData["title"] = "Computer - Online Store";
+        $viewData["subtitle"] = "Computer Details";
+        $viewData["categories"] = $categories;
+
+        return view('computer.create')->with("viewData", $viewData);
     }
 
     public function store(Request $request)
@@ -51,10 +58,11 @@ class ComputerController extends Controller
             "cpu" => "required",
             "ram" => "required",
             "gpu" => "required",
-            "storage" => "required"
+            "storage" => "required",
+            "categories" => "required"
         ]);
 
-        $item = $request->only(["brand", "os", "cpu", "ram", "gpu", "storage"]);
+        $item = $request->only(["brand", "os", "cpu", "ram", "gpu", "storage", "categories"]);
 
         $computer = new Computer();
         $computer->setBrand($item["brand"]);
@@ -63,8 +71,19 @@ class ComputerController extends Controller
         $computer->setRam($item["ram"]);
         $computer->setGpu($item["gpu"]);
         $computer->setStorage($item["storage"]);
-
         $computer->save();
+
+        $computerID = $computer->id;
+        foreach ($item["categories"] as $category) {
+
+            $pivot = new ComputerCategory();
+
+            $categoryIDs = Category::where('name', $category)->get('id');
+
+            $pivot->setCatageoryId($categoryIDs[0]->id);
+            $pivot->setComputerId($computerID);
+            $pivot->save();
+        }
 
         return redirect('/')->with('mssg', 'Elemento creado satisfactoriamente');
     }

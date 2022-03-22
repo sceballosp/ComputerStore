@@ -15,7 +15,7 @@
 
     <p>Categorias:</p>
     @foreach($viewData["computer"]->categories as $category)
-    - {{ $category->getCategory() }}<br>
+    - {{ $category->getName() }}<br>
     @endforeach
   </div>
 

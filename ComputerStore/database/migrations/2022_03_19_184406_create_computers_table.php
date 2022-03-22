@@ -22,6 +22,7 @@ return new class extends Migration
             $table->bigInteger('ram');
             $table->string('gpu');
             $table->bigInteger('storage');
+            $table->string('description')->nullable();
             $table->bigInteger('quantityAvailable')->nullable();
         });
     }

@@ -7,9 +7,16 @@ use App\Models\Computer;
 
 class Category extends Model
 {
+    /**
+     * CATEGORY ATTRIBUTES
+     * $this->attributes['id'] - int - contains the category primary key (id)
+     * $this->attributes['name'] - string - contains the category name
+     * $this->computers - Computer[] - contains the associated computers
+     */
+
     protected $table = 'categories';
 
-    protected $fillable = ['category'];
+    protected $fillable = ['name'];
 
 
     public function getId()
@@ -23,18 +30,18 @@ class Category extends Model
     }
 
 
-    public function getCategory()
+    public function getName()
     {
-        return $this->attributes['category'];
+        return $this->attributes['name'];
     }
 
-    public function setCategory($category)
+    public function setName($name)
     {
-        $this->attributes['category'] = $category;
+        $this->attributes['name'] = $name;
     }
 
     public function computers()
     {
-        return $this->belongsTo(Computer::class);
+        return $this->belongsToMany(Computer::class, 'computer_category');
     }
 }

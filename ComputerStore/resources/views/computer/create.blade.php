@@ -25,6 +25,13 @@
     <label for="storage">Almacenamiento:</label><br>
     <input type="text" id="storage" name="storage"><br><br>
 
+    <fieldset>
+      <label for="categories">Categorias:</label><br>
+      @foreach($viewData["categories"] as $key => $category)
+      <input type="checkbox" name="categories[]" value="{{ $category->getName() }}"> {{ $category->getName() }}<br />
+      @endforeach
+    </fieldset>
+
     <input type="submit" value="Submit">
   </form>
 

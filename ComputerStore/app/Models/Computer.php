@@ -7,6 +7,19 @@ use App\Models\Category;
 
 class Computer extends Model
 {
+
+    /**
+     * COMPUTER ATTRIBUTES
+     * $this->attributes['id'] - int - contains the computer primary key (id)
+     * $this->attributes['brand'] - string - contains the computer brand
+     * $this->attributes['os'] - string - contains the computer operating system
+     * $this->attributes['cpu'] - string - contains the computer procesor
+     * $this->attributes['ram'] - int - contains the computer RAM
+     * $this->attributes['gpu'] - string - contains the computer graphics card
+     * $this->attributes['storage'] - int - contains the computer storage
+     * $this->categories - Category[] - contains the associated categories
+     */
+
     protected $fillable = ['brand', 'os', 'cpu', 'ram', 'gpu', 'storage'];
 
 
@@ -88,6 +101,6 @@ class Computer extends Model
 
     public function categories()
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsToMany(Category::class, 'computer_category');
     }
 }

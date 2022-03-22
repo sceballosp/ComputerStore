@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('category');
-            $table->unsignedBigInteger('computer_id');
-            $table->foreign('computer_id')->references('id')->on('computers');
+            $table->string('name');
+            $table->string('descripcion')->nullable();
         });
     }
 

@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name("home.index");
 
+Route::get('/categories/create', 'App\Http\Controllers\CategoryController@create')->name("category.create");
+Route::post('/categories', 'App\Http\Controllers\CategoryController@store');
+
 Route::get('/computers', 'App\Http\Controllers\ComputerController@index')->name("computer.index");
 Route::get('/computers/create', 'App\Http\Controllers\ComputerController@create')->name("computer.create");
 Route::post('/computers', 'App\Http\Controllers\ComputerController@store');
