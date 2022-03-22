@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('gpu');
             $table->bigInteger('storage');
             $table->string('description');
+            $table->float('price');
             $table->bigInteger('quantityAvailable');
         });
     }

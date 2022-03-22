@@ -22,7 +22,7 @@ class Computer extends Model
      * $this->categories - Category[] - contains the associated categories
      */
 
-    protected $fillable = ['reference', 'brand', 'os', 'cpu', 'ram', 'gpu', 'storage', 'description', 'quantityAvailable'];
+    protected $fillable = ['reference', 'brand', 'os', 'cpu', 'ram', 'gpu', 'storage', 'description', 'price', 'quantityAvailable'];
     
     public static function validate($request)
     {
@@ -35,6 +35,7 @@ class Computer extends Model
             "gpu" => "required",
             "storage" => "required",
             "description" => "required",
+            "price" => "required",
             "quantityAvailable" => "required",
             "categories" => "required"
         ]);
@@ -131,6 +132,16 @@ class Computer extends Model
         $this->attributes['description'] = $description;
     }
 
+    public function getPrice()
+    {
+        return $this->attributes['price'];
+    }
+
+    public function setPrice($price)
+    {
+        $this->attributes['price'] = $price;
+    }
+
     public function getQuantityAvailable()
     {
         return $this->attributes['quantityAvailable'];
@@ -146,8 +157,28 @@ class Computer extends Model
         return $this->belongsToMany(Category::class, 'computer_category');
     }
 
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+    }
+
     public function orders()
     {
         return $this->belongsToMany(Order::class, 'order_computer');
+    }
+
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    public function setOrders($orders)
+    {
+        $this->orders = $orders;
     }
 }

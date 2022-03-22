@@ -96,8 +96,28 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
     public function computers()
     {
         return $this->belongsToMany(Computer::class, 'order_computer');
+    }
+
+    public function getComputers()
+    {
+        return $this->computer;
+    }
+
+    public function setComputers($computer)
+    {
+        $this->computer = $computer;
     }
 }
