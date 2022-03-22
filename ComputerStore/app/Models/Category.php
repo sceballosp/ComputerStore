@@ -61,4 +61,14 @@ class Category extends Model
     {
         return $this->belongsToMany(Computer::class, 'computer_category');
     }
+
+    public function getComputers()
+    {
+        return $this->computer;
+    }
+
+    public function setComputers($computer)
+    {
+        $this->computer = $computer;
+    }
 }

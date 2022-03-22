@@ -146,8 +146,28 @@ class Computer extends Model
         return $this->belongsToMany(Category::class, 'computer_category');
     }
 
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
+    public function setCategories($categories)
+    {
+        $this->categories = $categories;
+    }
+
     public function orders()
     {
         return $this->belongsToMany(Order::class, 'order_computer');
+    }
+
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    public function setOrders($orders)
+    {
+        $this->orders = $orders;
     }
 }

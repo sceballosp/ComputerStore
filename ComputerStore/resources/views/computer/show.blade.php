@@ -17,7 +17,7 @@
     <p>Unidades disponibles: {{ $viewData["computer"]->getQuantityAvailable() }}</p>
 
     <p>Categorias:</p>
-    @foreach($viewData["computer"]->categories as $category)
+    @foreach($viewData["computer"]->getCategories() as $category)
       <p>- {{ $category->getName() }}</p>
     @endforeach
   </div>
