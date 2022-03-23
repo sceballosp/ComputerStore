@@ -41,7 +41,7 @@
 
   <div>
     <br>
-    <a href="/">
+    <a href="/admin">
       <- home</a>
   </div>
 

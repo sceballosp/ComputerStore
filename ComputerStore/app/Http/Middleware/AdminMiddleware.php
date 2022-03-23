@@ -18,6 +18,6 @@ class AdminMiddleware
     {
         if (auth()->check() && auth()->user()->adminRole==1)
             return $next($request);
-        return redirect('/');
+        return redirect()->route('home.menu');
     }
 }

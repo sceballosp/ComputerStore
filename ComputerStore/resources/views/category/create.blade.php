@@ -21,7 +21,7 @@
 
   <div>
     <br>
-    <a href="/"><- home</a>
+    <a href="/admin"><- home</a>
   </div>
 
 </div>

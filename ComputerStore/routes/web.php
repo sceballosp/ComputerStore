@@ -13,18 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Auth::routes();
+Route::group(['middleware' => 'admin'], function () {
+    //Vista admin
+    Route::get('/admin', 'App\Http\Controllers\AdminController@index')->name("admin.index");
+    //vista de crear categoria
+    Route::get('/admin/categories/create', 'App\Http\Controllers\CategoryController@create')->name("category.create");
+    Route::post('/admin/categories', 'App\Http\Controllers\CategoryController@save');
+    //vista de creacion de computadores
+    Route::post('/admin/computers', 'App\Http\Controllers\ComputerController@save');
+    Route::get('/admin/computers/create', 'App\Http\Controllers\ComputerController@create')->name("computer.create");
+});
 
 Route::get('/', 'App\Http\Controllers\HomeController@index')->name("home.index");
 Route::get('/menu', 'App\Http\Controllers\HomeController@menu')->name("home.menu");
 
-Route::get('/admin', 'App\Http\Controllers\AdminController@index')->name("admin.index");
 
-Route::get('/categories/create', 'App\Http\Controllers\CategoryController@create')->name("category.create");
-Route::post('/categories', 'App\Http\Controllers\CategoryController@save');
 
 Route::get('/computers', 'App\Http\Controllers\ComputerController@index')->name("computer.index");
-Route::post('/computers', 'App\Http\Controllers\ComputerController@save');
-Route::get('/computers/create', 'App\Http\Controllers\ComputerController@create')->name("computer.create");
+
 Route::get('/computers/{id}', 'App\Http\Controllers\ComputerController@show')->name("computer.show");
 
 Route::get('/orders', 'App\Http\Controllers\OrderController@index')->name("order.index");
