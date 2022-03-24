@@ -4,10 +4,10 @@
 @section('content')
 
 <div class="center-screen">
-  <a class="margin-right" href="{{ route('computer.create') }}">Crear computador</a>
-  <a class="margin-right" href="{{ route('category.create') }}">Crear categoria</a>
-  <a class="margin-right" href="{{ route('order.create') }}">Crear orden</a>
-  <a class="" href="{{ route('computer.index') }}">Lista de computadores</a>
+  <a class="margin-right" href="{{ route('computer.create') }}">Crear computador</a><br>
+  <a class="margin-right" href="{{ route('category.create') }}">Crear categoria</a><br>
+  <a class="margin-right" href="{{ route('order.create') }}">Crear orden</a><br>
+  <a class="" href="{{ route('computer.index') }}">Lista de computadores</a><br>
   <a class="" href="{{ route('order.index') }}">Lista de ordenes</a>
 </div>
 

@@ -5,7 +5,7 @@
 
   <h2>Crear computer</h2>
 
-  <form action="/computers" method="POST">
+  <form action="{{ route('computer.save') }}" method="POST">
     @csrf
 
     <label for="brand">Referencia:</label><br>
@@ -41,7 +41,7 @@
     <fieldset>
       <label for="categories">Categorias:</label><br>
       @foreach($viewData["categories"] as $key => $category)
-        <input type="checkbox" name="categories[]" value="{{ $category->getName() }}"> {{ $category->getName() }}<br />
+      <input type="checkbox" name="categories[]" value="{{ $category->getName() }}"> {{ $category->getName() }}<br />
       @endforeach
     </fieldset>
 
@@ -50,7 +50,8 @@
 
   <div>
     <br>
-    <a href="/admin"><- home</a>
+    <a href="/admin">
+      <- home</a>
   </div>
 
 </div>

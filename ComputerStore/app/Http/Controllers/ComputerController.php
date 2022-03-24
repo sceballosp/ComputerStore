@@ -25,7 +25,7 @@ class ComputerController extends Controller
 
         $viewData = [];
         $viewData["title"] = $computer["id"] . " - Online Store";
-        $viewData["subtitle"] = "Computer #".$computer["id"] . " - Computer information";
+        $viewData["subtitle"] = "Computer #" . $computer["id"] . " - Computer information";
         $viewData["computer"] = $computer;
 
         return view('computer.show')->with("viewData", $viewData);
@@ -44,7 +44,7 @@ class ComputerController extends Controller
 
     public function save(Request $request)
     {
-        Computer::validate($request);        
+        Computer::validate($request);
         $item = $request->only(["reference", "brand", "os", "cpu", "ram", "gpu", "storage", "description", "price", "quantityAvailable", "categories"]);
         $computer = new Computer();
         $computer->setReference($item["reference"]);
@@ -69,10 +69,8 @@ class ComputerController extends Controller
             $pivot->setCatageoryId($categoryIDs[0]->id);
             $pivot->setComputerId($computerID);
             $pivot->save();
-        }        
+        }
 
-        return redirect('/');
+        return redirect('/admin');
     }
-
-
 }

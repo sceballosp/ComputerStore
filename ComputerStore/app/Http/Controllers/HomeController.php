@@ -19,7 +19,6 @@ class HomeController extends Controller
         $viewData["title"] = "Menu - Online Store";
         $viewData["subtitle"] = "Menu";
 
-        return view('home.menu')->with("viewData", $viewData);
+        return view('user.index')->with("viewData", $viewData);
     }
-
 }
