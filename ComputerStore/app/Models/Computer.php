@@ -20,7 +20,10 @@ class Computer extends Model
      * $this->attributes['description'] - int - contains the computer description
      * $this->attributes['quantityAvailable'] - int - contains the quantity available of the computer in the store
      * $this->categories - Category[] - contains the associated categories
+     * $this->items - Item[] - contains the associated items
      */
+
+    protected $table = 'computers';
 
     protected $fillable = ['reference', 'brand', 'os', 'cpu', 'ram', 'gpu', 'storage', 'description', 'price', 'quantityAvailable'];
     
@@ -39,6 +42,16 @@ class Computer extends Model
             "quantityAvailable" => "required",
             "categories" => "required"
         ]);
+    }
+
+    public static function sumPricesByQuantities($computers, $computersInSession)
+    {
+        $total = 0;
+        foreach ($computers as $computer) {
+            $total = $total + ($computer->getPrice()*$computersInSession[$computer->getId()]);
+        }
+
+        return $total;
     }
     
     public function getId()
@@ -180,5 +193,20 @@ class Computer extends Model
     public function setOrders($orders)
     {
         $this->orders = $orders;
+    }
+
+    public function items()
+    {
+        return $this->hasMany(OrderComputer::class);
+    }
+    
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    public function setItems($items)
+    {
+        $this->items = $items;
     }
 }

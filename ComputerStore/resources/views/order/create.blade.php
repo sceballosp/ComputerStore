@@ -2,49 +2,37 @@
 @section("title", $viewData["title"])
 @section("subtitle", $viewData["subtitle"])
 @section('content')
+
 <div class="margin">
-
-  <h2>Crear orden</h2>
-
-  <ul>
-    @foreach($viewData["computers"] as $key => $computer)
-      <li>
-        Id: {{ $key }} -
-        Name: {{ $computer->getReference() }} -
-        Price: {{ $computer->getPrice() }} -
-        <a href="{{ route('order.add', ['id'=> $key]) }}">Add to order</a>
-      </li>
-    @endforeach
-  </ul>
-
-    <h2>Computers in order</h2>
-    <ul>
-      @foreach($viewData["computersInOrder"] as $key => $computer)
-      <li>
-        Id: {{ $key }} -
-        Name: {{ $computer->getReference() }} -
-        Price: {{ $computer->getPrice() }}
-      </li>
-      @endforeach
-    </ul>
-    <a href="{{ route('order.removeAll') }}">Remove all computer from order</a>
-
-  <!--
-  <form action="/orders" method="POST">
-    @csrf
-
-    <label for="brand">Dirección:</label><br>
-    <input type="text" id="address" name="address"><br><br>
-    <input type="submit" value="Submit">
-  </form>
-  -->
-
   <div>
-    <br>
-    <a href="/admin">
-      <- home</a>
+    <h2> Detalles de la orden</h2>
   </div>
 
-</div>
 
+  @foreach ($viewData["computers"] as $computer)
+    <p>Computador: {{ $computer->getReference() }}</p>
+    <p>Precio: {{ $computer->getPrice() }}</p>
+    <p>Cantidad: {{ session('computers')[$computer->getId()] }}</p>
+  @endforeach
+
+  <p>Total to pay: ${{ $viewData["total"] }}</p>
+  @if (count($viewData["computers"]) > 0)
+  <br>
+  <a href="{{ route('order.save') }}">
+    <button>Order</button>
+  </a>
+  <br>
+
+
+  <br>
+  <a href="{{ route('order.removeAll') }}">
+    <button>Remove all products from order</button>
+  </a>
+  <br>
+  @endif
+
+  
+  <a href="/menu"><- orders</a>
+
+</div>
 @endsection

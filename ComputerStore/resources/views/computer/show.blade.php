@@ -5,7 +5,7 @@
 
 <div class="margin">
   <div>
-    <h2> Detalles del computador</h2>
+    <h2>Detalles del computador</h2>
     <p>Referencia: {{ $viewData["computer"]->getBrand() }}</p>
     <p>Marca: {{ $viewData["computer"]->getBrand() }}</p>
     <p>Sistema operativo: {{ $viewData["computer"]->getOs() }}</p>
@@ -22,6 +22,13 @@
       <p>- {{ $category->getName() }}</p>
     @endforeach
   </div>
+
+  <form method="POST" action="{{ route('order.add', ['id'=> $viewData['computer']->getId()]) }}">
+    @csrf
+    <div>Quantity</div>
+    <input type="number" min="1" class="form-control quantity-input" name="quantity" value="1">
+    <button type="submit">Add to order</button>
+  </form>
 
 </div>
 @endsection

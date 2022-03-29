@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Computer;
+use App\Models\OrderComputer;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class OrderController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
         $viewData = [];
-        $viewData["title"] = "Order - Online Store";
+        $viewData["title"] = "Orders - Online Store";
         $viewData["subtitle"] = "List of orders";
         $viewData["orders"] = Order::all();
 
@@ -32,48 +36,68 @@ class OrderController extends Controller
 
     public function create(Request $request)
     {
-        $computers = Computer::all();
+        $total = 0;
         $computersInOrder = [];
-        $ids = $request->session()->get("computers"); //we get the ids of the products stored in session
-        if ($ids) {
-            foreach ($computers as $key => $computer) {
-                if (in_array($key, array_keys($ids))) {
-                    $computersInOrder[$key] = $computer;
-                }
-            }
+        $computersInSession = $request->session()->get("computers"); //we get the ids of the products stored in session
+        if ($computersInSession) {
+            $computersInOrder = Computer::findMany(array_keys($computersInSession));
+            $total = Computer::sumPricesByQuantities($computersInOrder, $computersInSession);
         }
 
         $viewData = [];
-        $viewData["title"] = "Cart - Online Store";
+        $viewData["title"] = "Order - Online Store";
         $viewData["subtitle"] = "Shopping Cart";
-        $viewData["computers"] = $computers;
-        $viewData["computersInOrder"] = $computersInOrder;
+        $viewData["computers"] = $computersInOrder;
+        $viewData["total"] = $total;
 
         return view('order.create')->with("viewData", $viewData);
     }
 
+
     public function save(Request $request)
     {
-        Order::validate($request);
-        $item = $request->only(["amount", "address", "sent", "canceled", "paid"]);
-        $order = new Order();
-        $order->setAmount($item["amount"]);
-        $order->setAddress($item["address"]);
-        $order->setSent($item["sent"]);
-        $order->setCanceled($item["canceled"]);
-        $order->setPaid($item["paid"]);
-        $order->save();
+        $computersInSession = $request->session()->get("computers");
+        if ($computersInSession) {
+            //$user = Auth::user();
+            $order = new Order();
+            //$order->setUser($user);
+            $order->setAddress("dirección");
+            $order->setAmount(0);
+            $order->setSent(0);
+            $order->setCanceled(0);
+            $order->setPaid(0);
+            $order->save();
 
-        return redirect('/');
+            $total = 0;
+            $computersInOrder = Computer::findMany(array_keys($computersInSession));
+            foreach ($computersInOrder as $computer) {
+                $quantity = $computersInSession[$computer->getId()];
+                $item = new OrderComputer();
+                $item->setQuantity($quantity);
+                $item->setPrice($computer->getPrice());
+                $item->setComputerId($computer->getId());
+                $item->setComputerId($computer->getId());
+                $item->setOrderId($order->getId());
+                $item->save();
+                $total = $total + ($computer->getPrice() * $quantity);
+            }
+            $order->setAmount($total);
+            $order->save();
+
+            $request->session()->forget('computers');
+            return back();
+        } else {
+            return redirect()->route('order.index');
+        }
     }
 
-    public function add($id, Request $request)
+    public function add(Request $request, $id)
     {
         $computers = $request->session()->get("computers");
-        $computers[$id] = $id;
+        $computers[$id] = $request->input('quantity');
         $request->session()->put('computers', $computers);
 
-        return back();
+        return redirect()->route('computer.index');
     }
 
     public function removeAll(Request $request)

@@ -12,22 +12,23 @@ class Order extends Model
      * ORDER ATTRIBUTES
      * $this->attributes['id'] - int - contains the product primary key (id)
      * $this->attributes['amount'] - float - contains the order price
-     * $this->attributes['addreess'] - string - contains the address where the order will be delivered
+     * $this->attributes['address'] - string - contains the address where the order will be delivered
      * $this->attributes['sent'] - boolean - contains true if the order was sent or false if not
      * $this->attributes['canceled'] - boolean - contains true if the order was canceled by the user or false if not
      * $this->attributes['paid'] - boolean - contains true if the order was already paid or false if not
      * $this->user - User - contains the associated user
-     * $this->computers - Computer[] - contains the associated computers
+     * $this->items - Item[] - contains the associated items
      */
+
+    protected $table = 'orders';
+
+    protected $fillable = ['amount', 'address'];
 
     public static function validate($request)
     {
         $request->validate([
             "amount" => "required",
             "address" => "required",
-            "sent" => "required",
-            "canceled" => "required",
-            "paid" => "required"
         ]);
     }
     
@@ -56,7 +57,7 @@ class Order extends Model
         return $this->attributes['address'];
     }
 
-    public function setName($address)
+    public function setAddress($address)
     {
         $this->attributes['address'] = $address;
     }
@@ -105,19 +106,19 @@ class Order extends Model
     {
         $this->user = $user;
     }
-
-    public function computers()
+    
+    public function items()
     {
-        return $this->belongsToMany(Computer::class, 'order_computer');
+        return $this->hasMany(OrderComputer::class);
     }
 
-    public function getComputers()
+    public function getItems()
     {
-        return $this->computer;
+        return $this->items;
     }
 
-    public function setComputers($computer)
+    public function setItems($items)
     {
-        $this->computer = $computer;
+        $this->items = $items;
     }
 }

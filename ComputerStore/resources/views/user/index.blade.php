@@ -5,7 +5,6 @@
 
 <div class="center-screen">
 
-  <a class="margin-right" href="{{ route('order.create') }}">Crear orden</a><br>
   <a class="" href="{{ route('computer.index') }}">Lista de computadores</a>
 
 </div>

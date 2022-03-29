@@ -14,6 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('order_computer', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->integer('quantity');
+            $table->integer('price');
             $table->bigInteger('computer_id')->unsigned();
             $table->bigInteger('order_id')->unsigned();
             $table->foreign('computer_id')->references('id')->on('computers')->onDelete('cascade');
